@@ -58,6 +58,7 @@ const Details = (props) => {
                     disabled={inCart}
                     onClick={() => {
                       value.addToCart(id);
+                      value.openModal(id)
                     }}
                     
                   >

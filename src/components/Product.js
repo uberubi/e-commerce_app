@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types'
-import { ProductConsumer}  from '../context'
+import PropTypes from "prop-types";
+import { ProductConsumer } from "../context";
 
 const Product = (props) => {
   const { id, title, img, price, inCart } = props.product;
@@ -10,32 +10,34 @@ const Product = (props) => {
     <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
       <div className="card">
         <ProductConsumer>
-          
-        {(value) => (<div
-          className="img-container p-5"
-          onClick={() => value.handleDetail(id)}
-        >
-          <Link to="/details">
-            <img src={img} alt="product" className="card-img-top" />
-          </Link>
-          <button
-            className="cart-btn"
-            disabled={inCart ? true : false}
-            onClick={() => {
-              value.addToCart(id)
-            }}
-          >
-            {inCart ? (
-              <p className="text-capitalize mb-0" disabled>
-                in Cart
-              </p>
-            ) : (
-              <i className="fas fa-cart-plus"></i>
-            )}
-          </button>
-        </div>)}
-        
-        
+          {(value) => (
+            <div
+              className="img-container p-5"
+              onClick={() => {
+                value.handleDetail(id);
+                value.openModal(id);
+              }}
+            >
+              <Link to="/details">
+                <img src={img} alt="product" className="card-img-top" />
+              </Link>
+              <button
+                className="cart-btn"
+                disabled={inCart ? true : false}
+                onClick={() => {
+                  value.addToCart(id);
+                }}
+              >
+                {inCart ? (
+                  <p className="text-capitalize mb-0" disabled>
+                    in Cart
+                  </p>
+                ) : (
+                  <i className="fas fa-cart-plus"></i>
+                )}
+              </button>
+            </div>
+          )}
         </ProductConsumer>
 
         {/* card footer */}
@@ -55,13 +57,13 @@ export default Product;
 
 Product.propTypes = {
   product: PropTypes.shape({
-    id:PropTypes.number,
-    img:PropTypes.string,
-    title:PropTypes.string,
-    price:PropTypes.number,
-    inCart:PropTypes.bool
-  }).isRequired
-}
+    id: PropTypes.number,
+    img: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    inCart: PropTypes.bool,
+  }).isRequired,
+};
 
 const ProductWrapper = styled.div`
   .card {
